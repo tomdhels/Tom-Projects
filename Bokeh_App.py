@@ -5,6 +5,7 @@ from bokeh.models import Slider, ColumnDataSource, Select
 from bokeh.models.widgets import DataTable, DateFormatter, TableColumn
 import pandas as pd
 import numpy as np
+from bokeh.embed import server_document
 
 tom = [300,400,200,400,500]
 fertility = [3,5,5,5,6]
@@ -45,6 +46,7 @@ def update_table(attr, old, new):
             'y' : population
         }
 
+
 # Create a dropdown Select widget: select
 select = Select(title="distribution", options=['female_literacy', 'tom'], value='female_literacy')
 
@@ -54,5 +56,4 @@ select.on_change('value', update_table)
 # Create layout and add to current document
 layout = row(select, data_table)
 curdoc().add_root(layout)
-
-
+script = server_document('http://localhost:5006/Bokeh_App')
